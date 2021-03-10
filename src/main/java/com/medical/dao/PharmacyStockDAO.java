@@ -21,7 +21,7 @@ public class PharmacyStockDAO implements IPharmacyStockDAO {
 	}
 	@Transactional
 	public void insert(PharmacyStock pharmacyStock) {
-		 hibernateTemplate.update(pharmacyStock);
+		 hibernateTemplate.save(pharmacyStock);
 	}
 
 	public List<PharmacyStock> getAll() {
@@ -35,9 +35,15 @@ public class PharmacyStockDAO implements IPharmacyStockDAO {
 		 * String query = "select * from pharmacy where Medicine_id =?";
 		 * RowMapper<PharmacyStock> rowMapper = new PharmacyMapper();
 		 */
-		List<PharmacyStock> list=hibernateTemplate.findByExample(pharmacyStock);
-		return list.get(0);
+		List<PharmacyStock> list=getAll();
+		for(PharmacyStock pharm:list) {
+			if(pharm.getMedicineId()==medicineId) {
+				return pharm;
+			}
+		}
+				return null;
 	}
+	@Transactional
 	public void update(PharmacyStock pharmacy) {
 		//String query = "update Pharmacy set Qauntity = "+quantity+" where id ="+pharmacy.getId()+" ";
 		 hibernateTemplate.update(pharmacy);

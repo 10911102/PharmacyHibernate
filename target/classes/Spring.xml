@@ -15,35 +15,49 @@
 	<bean id="medicineDAO" class="com.medical.dao.MedicineDAO"
 		p:hibernateTemplate-ref="hibernateTemplate">
 	</bean> 
-	<!-- <bean id="shop" class="com.medical.Shop.ShopOperations">
-		<property name="medicineDAO" ref="medicineDao"></property>
+	<bean id="prescriptionDAO" class="com.medical.dao.PrescriptionDAO"
+		p:hibernateTemplate-ref="hibernateTemplate">
+	</bean> 
+	 <bean id="shop" class="com.medical.Shop.ShopOperations">
+		<property name="medicineDAO" ref="medicineDAO"></property>
 		<property name="pharmacyDAO" ref="pharmacyDAO"></property>
 		<property name="orderOperation" ref="orderOperations"></property>
+		<property name="prescriptionDAO" ref="prescriptionDAO"></property>
 	</bean>
 
-	<bean id="pharmacyDAO" class="com.medical.DAO.PharmacyDAO"
-		p:jdbcTemplate-ref="jdbcTemplate">
+	<bean id="pharmacyDAO" class="com.medical.dao.PharmacyStockDAO"
+		p:hibernateTemplate-ref="hibernateTemplate">
 	</bean>
 
 	<bean id="doctorOp" class="com.medical.Shop.DoctorOperations">
 		<property name="doctorDAO" ref="doctorDao"></property>
+		<property name="prescriptionDAO" ref="prescriptionDAO"></property>
+		<property name="shop" ref="shop"></property>
+		
 	</bean>
-	<bean id="doctorDao" class="com.medical.DAO.DoctorDAO"
-		p:jdbcTemplate-ref="jdbcTemplate">
-		<property name="dataSource" ref="ds"></property>
+	<bean id="doctorDao" class="com.medical.dao.DoctorDAO"
+		p:hibernateTemplate-ref="hibernateTemplate">
 	</bean>
 
 	<bean id="orderOperations"
 		class="com.medical.Shop.OrderOperations">
 		<property name="shop" ref="shop"></property>
 		<property name="orderDAO" ref="orderDAO"></property>
-		<property name="medicineDAO" ref="medicineDao"></property>
+		<property name="medicineDAO" ref="medicineDAO"></property>
 		<property name="pharmacyDAO" ref="pharmacyDAO"></property>
 	</bean>
-	<bean id="orderDAO" class="com.medical.DAO.OrderDAO"
-		p:jdbcTemplate-ref="jdbcTemplate">
+	<bean id="orderDAO" class="com.medical.dao.OrderDAO"
+		p:hibernateTemplate-ref="hibernateTemplate">
 	</bean>
- -->
+	
+	<bean id="pharmacyProperties"
+		class="com.medical.pojo.PharmacyProperties">
+		<property name="name" value="${name}" />
+		<property name="lic_no" value="${lic_no}" />
+		<property name="address" value="${address}" />
+		<property name="contact" value="${contact}" />
+	</bean>
+ 
 
 
 

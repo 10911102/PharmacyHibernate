@@ -23,9 +23,13 @@ public class PrescriptionDAO implements IPrescriptionDAO {
 
 	@Transactional
 	public void insert(Prescription prescription) {
+		hibernateTemplate.save(prescription);
+	}
+	
+	public void update(Prescription prescription) {
 		hibernateTemplate.update(prescription);
 	}
-
+	
 	public List<Prescription> getAll() {
 		return hibernateTemplate.loadAll(Prescription.class);
 	}
@@ -33,18 +37,10 @@ public class PrescriptionDAO implements IPrescriptionDAO {
 	public Prescription getById(int medicineId) {
 		Prescription prescription = new Prescription();
 		prescription.setMedicine_id(medicineId);
-		/*
-		 * String query = "select * from pharmacy where Medicine_id =?";
-		 * RowMapper<PharmacyStock> rowMapper = new PharmacyMapper();
-		 */
 		List<Prescription> list = hibernateTemplate.findByExample(prescription);
 		return list.get(0);
 	}
 
-	public void update(Prescription prescription) {
-		// String query = "update Pharmacy set Qauntity = "+quantity+" where id
-		// ="+pharmacy.getId()+" ";
-		hibernateTemplate.update(prescription);
-	}
+	
 
 }

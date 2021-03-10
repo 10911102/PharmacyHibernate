@@ -43,10 +43,13 @@ public class MedicineDAO implements IMedicineDAO {
 		 * String query = "select * from medicine where id=?"; RowMapper<Medicine>
 		 * rowMapper = new MedicineMapper();
 		 */
-		Medicine medicine=new Medicine();
-		medicine.setId(medicineId);
-		List<Medicine> medicines=  hibernateTemplate.findByExample(medicine);
-		return medicines.get(0);
+		List<Medicine> medicines=  getAll();
+		for(Medicine med:medicines) {
+			if(med.getId()==medicineId) {
+				return med;
+			}
+		}
+		return null;
 	}
 	public List<Medicine> getByName(String name) {
 		Medicine medicine=new Medicine();

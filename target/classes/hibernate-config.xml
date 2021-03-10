@@ -8,7 +8,7 @@
 
 	<!-- supply loc -->
 	<context:property-placeholder 
-	location="classpath:/database.properties" />
+	location="classpath:/database.properties,classpath:/pharmacy.properties" />
 	<!-- DS bean -->
 	<bean id="dataSource" 
 	class="org.springframework.jdbc.datasource.DriverManagerDataSource"
@@ -25,7 +25,7 @@
 		<property name="hibernateProperties">
 		<props>
 		<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
-		<prop key="hibernate.show_sql"></prop>	
+		<prop key="hibernate.show_sql">true</prop>	
 		<prop key="hibernate.hbm2ddl.auto">update</prop>	
 		</props>
 		</property>

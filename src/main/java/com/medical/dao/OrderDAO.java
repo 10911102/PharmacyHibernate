@@ -40,14 +40,18 @@ public class OrderDAO implements IOrderDAO {
 		 * rowMapper = new OrderMapper(); return jdbcTemplate.queryForObject(query,
 		 * rowMapper, id);
 		 */
-		Order order=new Order();
-		order.setStatus("Not received");
-		List<Order> orders= hibernateTemplate.findByExample(order);
-		return orders.get(0);
+		List<Order> orders= getAll();
+		for (Order o:orders) {
+			if(o.getId()==id) {
+				return o;
+			}
+		}
+		return null;
 	}
-
+	@Transactional
 	public void updateStatus(Order order) {
 		//String query = "update Order_stock set Delivery_status = 'Deliverd' where id ="+id+" ";
+		order.setStatus("Deliverd");
 		hibernateTemplate.update(order);
 	}
 

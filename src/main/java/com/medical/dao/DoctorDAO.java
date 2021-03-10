@@ -3,6 +3,8 @@ package com.medical.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 
@@ -19,6 +21,7 @@ public class DoctorDAO  implements IDoctorDAO{
 	public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
 		this.hibernateTemplate = hibernateTemplate;
 	}
+	
 	public List<Doctor> getAll() throws SQLException {
 		 return this.hibernateTemplate.loadAll(Doctor.class);
 	}
@@ -43,6 +46,12 @@ public class DoctorDAO  implements IDoctorDAO{
 		doctor.setlName(name);
 		return hibernateTemplate.findByExample(doctor);
 	}
+	@Transactional
+	public int insert(Doctor doctor) {
+		Integer modifiedColoums=(Integer) hibernateTemplate.save(doctor);
+		return modifiedColoums;
+	}
+	
 
 
 	
